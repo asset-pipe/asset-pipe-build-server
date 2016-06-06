@@ -5,16 +5,25 @@
 const http            = require('http'),
       hbs             = require('hbs'),
       path            = require('path'),
+      bole            = require('bole'),
       express         = require('express'),
       compress        = require('compression')(),
       cors            = require('cors'),
       config          = require('../config/config.js'),
       ErrorMid        = require('error-mid'),
-      metrics         = require('@amedia/statsd-metrics'),
-      log             = require('./log.js'),
+//      log             = require('./log.js'),
       Lib             = require('../'),
       app             = express(),
       errorMid        = new ErrorMid();
+
+
+
+// Configure logging
+
+bole.output({
+    level: config.get('logLevel'),
+    stream: process.stdout
+});
 
 
 
@@ -32,19 +41,6 @@ const lib = new Lib();
 
 
 
-// Set up metrics
-
-metrics({
-    host : config.get('statsdServer'),
-    port : config.get('statsdPort'),
-    name : config.get('name'),
-    serverName : config.get('serverName'),
-    serverType : config.get('serverType')
-}, (error) => {
-    log.error(error, 'error setting up metrics');
-});
-
-
 // Configure application
 
 app.disable('x-powered-by');
@@ -54,18 +50,14 @@ app.enable('trust proxy');
 
 // Set middleware
 
-app.use(metrics.middleware);
 app.use(compress);
 app.use(cors());
 
 
 
 // Attach lib routers 
-console.log(config.get('apiPath') + '/v1');
-app.use(config.get('apiPath') + '/v1', lib.routes);
-app.get(config.get('contextPath') + '/apiadmin/ping', (req, res) => {
-    res.status('200 OK ' + config.get('version')).send('OK ' + config.get('version'));
-});
+
+app.use('/', lib.routes);
 
 
 

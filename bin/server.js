@@ -4,7 +4,8 @@
 
 const config  = require('../config/config.js'),
       server  = require('./app.js'),
-      log     = require('./log.js');
+      bole    = require('bole'),
+      log     = bole('server');
 
 
 
@@ -13,7 +14,6 @@ const config  = require('../config/config.js'),
 server.listen(config.get('httpServerPort'), () => {
     log.info('server running at http://localhost:' + server.address().port);
     log.info('server process has pid ' + process.pid);
-    log.info('api routes available under http://localhost:' + server.address().port + config.get('apiPath'));
 });
 
 
@@ -22,9 +22,7 @@ server.listen(config.get('httpServerPort'), () => {
 // Upstart or forever should handle kicking the process back into life!
 
 process.on('uncaughtException', (error) => {
-    log.error('shutdown - server taken down by force due to a uncaughtException');
-    log.error(error.message);
-    log.error(error.stack);
+    log.error(error, 'shutdown - server taken down by force due to a uncaughtException');
     server.close();
     process.nextTick(() => {
         process.exit(1);
