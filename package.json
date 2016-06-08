@@ -47,6 +47,6 @@
     "bistre": "1.0.1"
   },
   "scripts": {
-    "start": "node bin/server.js | bistre"
+    "start": "node bin/server.js"
   }
 }
