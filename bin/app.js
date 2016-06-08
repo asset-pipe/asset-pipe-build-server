@@ -11,10 +11,10 @@ const http            = require('http'),
       cors            = require('cors'),
       config          = require('../config/config.js'),
       ErrorMid        = require('error-mid'),
-//      log             = require('./log.js'),
       Lib             = require('../'),
       app             = express(),
-      errorMid        = new ErrorMid();
+      errorMid        = new ErrorMid(),
+      log             = bole('app');
 
 
 

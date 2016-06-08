@@ -28,18 +28,19 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
+    "readable-stream": "2.1.4",
+    "compression": "1.6.2",
     "error-obj": "1.1.0",
     "error-mid": "1.2.0",
-    "compression": "1.6.2",
+    "request": "2.72.0",
     "express": "4.13.4",
+    "busboy": "0.2.13",
     "convict": "1.4.0",
+    "body": "5.1.0",
+    "bole": "2.0.0",
     "cors": "2.7.1",
     "joi": "8.4.1",
-    "hbs": "4.0.0",
-    "request": "2.72.0",
-    "body": "5.1.0",
-    "busboy": "0.2.13",
-    "bole": "2.0.0"
+    "hbs": "4.0.0"
   },
   "scripts": {
     "start": "node bin/server.js"
