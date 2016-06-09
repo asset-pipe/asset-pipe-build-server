@@ -57,7 +57,7 @@ app.use(cors());
 
 // Attach lib routers 
 
-app.use('/', lib);
+app.use('/', lib.router);
 
 
 
