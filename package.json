@@ -34,7 +34,6 @@
     "error-mid": "1.2.0",
     "request": "2.72.0",
     "express": "4.13.4",
-    "busboy": "0.2.13",
     "convict": "1.4.0",
     "body": "5.1.0",
     "bole": "2.0.0",
