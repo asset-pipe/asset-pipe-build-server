@@ -28,7 +28,6 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
-    "readable-stream": "2.1.4",
     "compression": "1.6.2",
     "error-obj": "1.1.0",
     "error-mid": "1.2.0",
