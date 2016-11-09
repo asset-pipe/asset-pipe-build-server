@@ -1,6 +1,6 @@
 {
   "name": "asset-pipe-build-server",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "author": "Amedia",
   "description": "Asset pipe build server",
   "license": "MIT",
@@ -28,6 +28,8 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
+    "asset-pipe-js-reader": "1.0.0-alpha.1",
+    "asset-pipe-sink-fs": "1.0.0-alpha.1",
     "compression": "1.6.2",
     "error-obj": "1.1.0",
     "error-mid": "1.2.0",
