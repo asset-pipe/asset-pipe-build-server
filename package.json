@@ -42,7 +42,11 @@
     "joi": "9.2.0",
     "hbs": "4.0.1"
   },
+  "devDependencies": {
+    "tap": "8.0.0"
+  },
   "scripts": {
+    "test": "tap test/*.js",
     "start": "node bin/server.js"
   }
 }
