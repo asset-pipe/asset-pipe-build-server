@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "asset-pipe-js-reader": "1.0.0-alpha.2",
-    "asset-pipe-sink-fs": "1.0.0-alpha.2",
+    "asset-pipe-sink-fs": "1.0.0-alpha.3",
     "compression": "1.6.2",
     "error-obj": "2.0.0",
     "error-mid": "1.3.0",
