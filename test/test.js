@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 const tap = require('tap');
-const Writer = require('../');
+// const Writer = require('../');
 
-tap.test('foo() - bar', function (t) {
+tap.test('foo() - bar', (t) => {
 //    var writer = new Writer('./test/mock/main.js');
 //    writer.bundle().pipe(process.stdout);
 

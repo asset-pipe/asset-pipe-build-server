@@ -1,26 +1,19 @@
 #!/usr/bin/env node
+'use strict';
 
-"use strict";
-
-const config  = require('../config/config.js'),
-      server  = require('./app.js'),
-      bole    = require('bole'),
-      log     = bole('server');
-
-
+const config = require('../config/config.js');
+const server = require('./app.js');
+const bole = require('bole');
+const log = bole('server');
 
 // Start application
-
 server.listen(config.get('httpServerPort'), () => {
-    log.info('server running at http://localhost:' + server.address().port);
-    log.info('server process has pid ' + process.pid);
+    log.info(`server running at http://localhost:${server.address().port}`);
+    log.info(`server process has pid ${process.pid}`);
 });
-
-
 
 // Catch uncaught exceptions, log it and take down server in a nice way.
 // Upstart or forever should handle kicking the process back into life!
-
 process.on('uncaughtException', (error) => {
     log.error(error, 'shutdown - server taken down by force due to a uncaughtException');
     server.close();
@@ -29,10 +22,7 @@ process.on('uncaughtException', (error) => {
     });
 });
 
-
-
 // Listen for SIGINT (Ctrl+C) and do a gracefull takedown of the server
-
 process.on('SIGINT', () => {
     log.info('shutdown - got SIGINT - taking down server gracefully');
     server.close();
@@ -41,10 +31,7 @@ process.on('SIGINT', () => {
     });
 });
 
-
-
 // Listen for SIGTERM (Upstart) and do a gracefull takedown of the server
-
 process.on('SIGTERM', () => {
     log.info('shutdown - got SIGTERM - taking down server gracefully');
     server.close();
