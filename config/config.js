@@ -1,4 +1,3 @@
-/* jshint node: true, strict: true */
 'use strict';
 
 const path = require('path');
