@@ -39,7 +39,7 @@
     "error-obj": "2.0.0",
     "express": "4.14.1",
     "hbs": "4.0.1",
-    "joi": "10.2.2",
+    "joi": "^10.2.2",
     "request": "2.79.0"
   },
   "devDependencies": {
