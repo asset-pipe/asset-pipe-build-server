@@ -28,8 +28,8 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
-    "asset-pipe-js-reader": "1.0.0-alpha.2",
-    "asset-pipe-sink-fs": "1.0.0-alpha.3",
+    "asset-pipe-js-reader": "1.0.0-alpha.5",
+    "asset-pipe-sink-fs": "1.0.0-alpha.5",
     "body": "5.1.0",
     "bole": "3.0.2",
     "compression": "1.6.2",
@@ -39,7 +39,7 @@
     "error-obj": "2.0.0",
     "express": "4.14.1",
     "hbs": "4.0.1",
-    "joi": "10.2.2",
+    "joi": "^10.2.2",
     "request": "2.79.0"
   },
   "devDependencies": {
