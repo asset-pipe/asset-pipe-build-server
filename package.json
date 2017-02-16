@@ -28,8 +28,8 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
-    "asset-pipe-js-reader": "1.0.0-alpha.2",
-    "asset-pipe-sink-fs": "1.0.0-alpha.3",
+    "asset-pipe-js-reader": "1.0.0-alpha.5",
+    "asset-pipe-sink-fs": "1.0.0-alpha.4",
     "body": "5.1.0",
     "bole": "3.0.2",
     "compression": "1.6.2",

@@ -131,22 +131,22 @@ asset-pipe-common@1.0.0-alpha.2:
   dependencies:
     readable-stream "2.2.2"
 
-asset-pipe-js-reader@1.0.0-alpha.2:
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/asset-pipe-js-reader/-/asset-pipe-js-reader-1.0.0-alpha.2.tgz#fdb9a43b0ae1fffb766b63e5adda4a424daf4572"
+asset-pipe-js-reader@1.0.0-alpha.5:
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/asset-pipe-js-reader/-/asset-pipe-js-reader-1.0.0-alpha.5.tgz#adc665e9451c5814cabd45f07c3237bdb44880a8"
   dependencies:
     JSONStream "1.2.1"
-    browser-pack "6.0.1"
+    browser-pack "6.0.2"
     deps-sort "2.0.0"
     lodash.isundefined "3.0.1"
-    merge-stream "1.0.0"
-    pump "1.0.1"
+    merge-stream "1.0.1"
+    pump "1.0.2"
     readable-stream "2.2.2"
-    request "2.78.0"
+    request "2.79.0"
 
-asset-pipe-sink-fs@1.0.0-alpha.3:
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/asset-pipe-sink-fs/-/asset-pipe-sink-fs-1.0.0-alpha.3.tgz#435f5e751a6983ae8d26f4678354711f5748c353"
+asset-pipe-sink-fs@1.0.0-alpha.4:
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/asset-pipe-sink-fs/-/asset-pipe-sink-fs-1.0.0-alpha.4.tgz#f638f425ab686385b83b4c4bd0ced5a74f7e370b"
   dependencies:
     JSONStream "1.2.1"
     asset-pipe-common "1.0.0-alpha.2"
@@ -298,9 +298,9 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
-browser-pack@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/browser-pack/-/browser-pack-6.0.1.tgz#779887c792eaa1f64a46a22c8f1051cdcd96755f"
+browser-pack@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/browser-pack/-/browser-pack-6.0.2.tgz#f86cd6cef4f5300c8e63e07a4d512f65fbff4531"
   dependencies:
     JSONStream "^1.0.3"
     combine-source-map "~0.7.1"
@@ -1631,9 +1631,9 @@ merge-source-map@^1.0.2:
   dependencies:
     source-map "^0.5.3"
 
-merge-stream@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-1.0.0.tgz#9cfd156fef35421e2b5403ce11dc6eb1962b026e"
+merge-stream@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-1.0.1.tgz#4041202d508a342ba00174008df0c251b8c135e1"
   dependencies:
     readable-stream "^2.0.1"
 
@@ -1716,10 +1716,6 @@ natural-compare@^1.4.0:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
-
-node-uuid@~1.4.7:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.7.tgz#6da5a17668c4b3dd59623bda11cf7fa4c1f60a6f"
 
 normalize-package-data@^2.3.2:
   version "2.3.5"
@@ -1955,9 +1951,9 @@ pseudomap@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
-pump@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.1.tgz#f1f1409fb9bd1085bbdb576b43b84ec4b5eadc1a"
+pump@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.2.tgz#3b3ee6512f94f0e575538c17995f9f16990a5d51"
   dependencies:
     end-of-stream "^1.1.0"
     once "^1.3.1"
@@ -2069,31 +2065,6 @@ repeating@^2.0.0:
   resolved "https://registry.yarnpkg.com/repeating/-/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
   dependencies:
     is-finite "^1.0.0"
-
-request@2.78.0:
-  version "2.78.0"
-  resolved "https://registry.yarnpkg.com/request/-/request-2.78.0.tgz#e1c8dec346e1c81923b24acdb337f11decabe9cc"
-  dependencies:
-    aws-sign2 "~0.6.0"
-    aws4 "^1.2.1"
-    caseless "~0.11.0"
-    combined-stream "~1.0.5"
-    extend "~3.0.0"
-    forever-agent "~0.6.1"
-    form-data "~2.1.1"
-    har-validator "~2.0.6"
-    hawk "~3.1.3"
-    http-signature "~1.1.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.7"
-    node-uuid "~1.4.7"
-    oauth-sign "~0.8.1"
-    qs "~6.3.0"
-    stringstream "~0.0.4"
-    tough-cookie "~2.3.0"
-    tunnel-agent "~0.4.1"
 
 request@2.79.0:
   version "2.79.0"
