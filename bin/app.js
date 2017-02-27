@@ -38,19 +38,23 @@ app.use((error, req, res, next) => {
 });
 
 // Send error status pages
-app.use((error, req, res) => {
+app.use((error, req, res, next) => { // eslint-disable-line
     const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
     switch (accepts) {
         case 'json':
+            console.log('json');
             res.status(error.output.payload.statusCode).json(error.output.payload);
             break;
         case 'html':
+            console.log('html');
             res.status(error.output.payload.statusCode).send(`<html><body><h1>${error.output.payload.error}</h1></body></html>`);
             break;
         case 'text':
+            console.log('text');
             res.status(error.output.payload.statusCode).send(error.output.payload.error);
             break;
         default:
+            console.log('default');
             res.status(406).send('Not Acceptable');
     }
 });
