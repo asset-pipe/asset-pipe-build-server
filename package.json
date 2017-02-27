@@ -33,8 +33,7 @@
     "convict": "2.0.0",
     "cors": "2.8.1",
     "express": "4.14.1",
-    "joi": "10.2.2",
-    "request": "2.79.0"
+    "joi": "10.2.2"
   },
   "devDependencies": {
     "eslint": "^3.15.0",
