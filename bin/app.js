@@ -42,19 +42,33 @@ app.use((error, req, res, next) => { // eslint-disable-line
     const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
     switch (accepts) {
         case 'json':
-            console.log('json');
             res.status(error.output.payload.statusCode).json(error.output.payload);
             break;
         case 'html':
-            console.log('html');
             res.status(error.output.payload.statusCode).send(`<html><body><h1>${error.output.payload.error}</h1></body></html>`);
             break;
         case 'text':
-            console.log('text');
             res.status(error.output.payload.statusCode).send(error.output.payload.error);
             break;
         default:
-            console.log('default');
+            res.status(406).send('Not Acceptable');
+    }
+});
+
+// Send 404 page
+app.use((req, res) => {
+    const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
+    switch (accepts) {
+        case 'json':
+            res.status(404).json({code: 404, message: 'Not found'});
+            break;
+        case 'html':
+            res.status(404).send(`<html><body><h1>Not found</h1></body></html>`);
+            break;
+        case 'text':
+            res.status(404).send('Not found');
+            break;
+        default:
             res.status(406).send('Not Acceptable');
     }
 });
