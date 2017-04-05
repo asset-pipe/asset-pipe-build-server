@@ -23,7 +23,7 @@ lib.on('request start', (id) => {
     log.info('request start', id);
 });
 lib.on('request error', (id, error) => {
-    log.error('request error', id, error);
+    log.info('request error', id);
 });
 
 
