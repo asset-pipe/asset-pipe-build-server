@@ -19,6 +19,13 @@ bole.output({
 
 // Set up the library this app exposes
 const lib = new Lib();
+lib.on('request start', (id) => {
+    log.info('request start', id);
+});
+lib.on('request error', (id, error) => {
+    log.error('request error', id, error);
+});
+
 
 // Configure application
 app.disable('x-powered-by');
