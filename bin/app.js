@@ -19,13 +19,15 @@ bole.output({
 
 // Set up the library this app exposes
 const lib = new Lib();
-lib.on('request start', (id) => {
-    log.info('request start', id);
+lib.on('request start', (id, method, path) => {
+    log.info('request start', id, method, path);
 });
-lib.on('request error', (id, error) => {
-    log.info('request error', id);
+lib.on('request error', (id, method, path, error) => {
+    log.info('request error', id, method, path, error);
 });
-
+lib.on('request success', (id, method, path, meta) => {
+    log.info('request success', id, method, path, meta);
+});
 
 // Configure application
 app.disable('x-powered-by');
@@ -67,10 +69,10 @@ app.use((req, res) => {
     const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
     switch (accepts) {
         case 'json':
-            res.status(404).json({code: 404, message: 'Not found'});
+            res.status(404).json({ code: 404, message: 'Not found' });
             break;
         case 'html':
-            res.status(404).send(`<html><body><h1>Not found</h1></body></html>`);
+            res.status(404).send('<html><body><h1>Not found</h1></body></html>');
             break;
         case 'text':
             res.status(404).send('Not found');
