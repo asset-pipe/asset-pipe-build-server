@@ -46,24 +46,6 @@ app.use((error, req, res, next) => {
     next(error);
 });
 
-// Send error status pages
-app.use((error, req, res, next) => { // eslint-disable-line
-    const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
-    switch (accepts) {
-        case 'json':
-            res.status(error.output.payload.statusCode).json(error.output.payload);
-            break;
-        case 'html':
-            res.status(error.output.payload.statusCode).send(`<html><body><h1>${error.output.payload.error}</h1></body></html>`);
-            break;
-        case 'text':
-            res.status(error.output.payload.statusCode).send(error.output.payload.error);
-            break;
-        default:
-            res.status(406).send('Not Acceptable');
-    }
-});
-
 // Send 404 page
 app.use((req, res) => {
     const accepts = req.xhr ? 'json' : req.accepts(['html', 'json', 'text']);
