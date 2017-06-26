@@ -3,5 +3,8 @@
   "extends": [
     "finn",
     "finn/node"
-  ]
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8
+  }
 }
