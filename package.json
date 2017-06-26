@@ -1,6 +1,6 @@
 {
   "name": "asset-pipe-build-server",
-  "version": "1.0.0-beta.12",
+  "version": "1.0.0-beta.13",
   "description": "Asset pipe build server",
   "license": "MIT",
   "main": "./lib/main.js",
