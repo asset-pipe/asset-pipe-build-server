@@ -1,6 +1,6 @@
 {
   "name": "asset-pipe-build-server",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "description": "Asset pipe build server",
   "license": "MIT",
   "main": "./lib/main.js",
@@ -24,23 +24,23 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
-    "asset-pipe-js-reader": "^1.0.0-beta.8",
+    "asset-pipe-js-reader": "1.0.0-beta.9",
     "asset-pipe-sink-fs": "1.0.0-beta.9",
-    "asset-pipe-sink-mem": "1.0.0-beta.4",
+    "asset-pipe-sink-mem": "1.0.0-beta.5",
     "body": "5.1.0",
     "bole": "3.0.2",
     "boom": "5.1.0",
     "compression": "1.6.2",
     "convict": "4.0.0",
     "cors": "2.8.3",
-    "express": "4.15.2",
+    "express": "4.15.3",
     "joi": "10.6.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-finn": "^1.0.2",
-    "tap": "10.5.2"
+    "tap": "10.7.0"
   },
   "scripts": {
     "lint": "eslint .",
