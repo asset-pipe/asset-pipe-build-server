@@ -1,6 +1,5 @@
 public
 node_modules
-node_modules/**/*
 .DS_Store
 tmp/**/*
 .idea
@@ -8,3 +7,4 @@ tmp/**/*
 *.iml
 *.log
 .vscode
+coverage
