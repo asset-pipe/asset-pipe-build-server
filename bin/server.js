@@ -14,8 +14,11 @@ server.listen(config.get('httpServerPort'), () => {
 
 // Catch uncaught exceptions, log it and take down server in a nice way.
 // Upstart or forever should handle kicking the process back into life!
-process.on('uncaughtException', (error) => {
-    log.error(error, 'shutdown - server taken down by force due to a uncaughtException');
+process.on('uncaughtException', error => {
+    log.error(
+        error,
+        'shutdown - server taken down by force due to a uncaughtException'
+    );
     server.close();
     process.nextTick(() => {
         process.exit(1);

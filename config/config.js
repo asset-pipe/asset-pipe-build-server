@@ -41,14 +41,18 @@ const conf = convict({
         default: 'debug',
         env: 'LOG_LEVEL',
     },
-
 });
 
 // Load config files
 if (fs.existsSync(path.resolve(__dirname, '../config/local.json'))) {
-    conf.loadFile([path.resolve(__dirname, '../config/', `${conf.get('env')}.json`), path.resolve(__dirname, '../config/local.json')]);
+    conf.loadFile([
+        path.resolve(__dirname, '../config/', `${conf.get('env')}.json`),
+        path.resolve(__dirname, '../config/local.json'),
+    ]);
 } else {
-    conf.loadFile([path.resolve(__dirname, '../config/', `${conf.get('env')}.json`)]);
+    conf.loadFile([
+        path.resolve(__dirname, '../config/', `${conf.get('env')}.json`),
+    ]);
 }
 
 // Validate all properties and export it
