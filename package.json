@@ -1,6 +1,6 @@
 {
   "name": "asset-pipe-build-server",
-  "version": "1.0.0-beta.13",
+  "version": "0.0.0-development",
   "description": "Asset pipe build server",
   "license": "MIT",
   "main": "./lib/main.js",
@@ -9,16 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:asset-pipe/asset-pipe-build-server.git"
+    "url": "https://github.com/asset-pipe/asset-pipe-build-server.git"
   },
   "keywords": [
     "assets"
   ],
   "contributors": [
-    {
-      "name": "Trygve Lie",
-      "email": "post@trygve-lie.com"
-    }
+    "Trygve Lie <post@trygve-lie.com>",
+    "Trygve Lie (http://www.trygve-lie.com/)",
+    "Greenkeeper (http://greenkeeper.io/)",
+    "Sveinung Røsaker (https://github.com/sveisvei)",
+    "Simen Bekkhus (https://github.com/SimenB)"
   ],
   "bugs": {
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
@@ -38,18 +39,67 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.1.1",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "eslint": "^4.9.0",
     "eslint-config-finn": "^3.0.0",
-    "tap": "10.7.2"
+    "eslint-config-finn-prettier": "^3.0.1",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lint-staged": "^4.2.3",
+    "prettier": "^1.7.4",
+    "projectz": "^1.4.0",
+    "semantic-release": "^8.2.0"
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "tap test/*.js",
-    "start": "node bin/server.js"
+    "test": "jest --coverage",
+    "start": "node bin/server.js",
+    "lint:format": "eslint --fix .",
+    "precommit": "lint-staged",
+    "cm": "git-cz",
+    "readme": "projectz compile",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "files": [
     "bin",
     "config",
     "lib"
-  ]
+  ],
+  "jest": {
+    "clearMocks": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix --config ./.eslintrc",
+      "git add"
+    ],
+    "{package.json,README.md,LICENSE.md}": [
+      "projectz compile",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "badges": {
+    "list": [
+      "travisci",
+      "npmversion",
+      "daviddm",
+      "daviddmdev"
+    ]
+  },
+  "author": "Trygve Lie <post@trygve-lie.com>",
+  "maintainers": []
 }
