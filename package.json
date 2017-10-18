@@ -1,6 +1,6 @@
 {
   "name": "asset-pipe-build-server",
-  "version": "1.0.0-beta.13",
+  "version": "0.0.0-development",
   "description": "Asset pipe build server",
   "license": "MIT",
   "main": "./lib/main.js",
@@ -50,6 +50,7 @@
     "prettier": "^1.7.4",
     "projectz": "^1.4.0",
     "tap": "10.7.2"
+    "semantic-release": "^8.2.0"
   },
   "scripts": {
     "lint": "eslint .",
@@ -58,7 +59,8 @@
     "lint:format": "eslint --fix .",
     "precommit": "lint-staged",
     "cm": "git-cz",
-    "readme": "projectz compile"
+    "readme": "projectz compile",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "files": [
     "bin",
