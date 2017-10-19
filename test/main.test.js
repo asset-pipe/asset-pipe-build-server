@@ -19,171 +19,6 @@ function createTestServerFor(router) {
     });
 }
 
-// class instantiation
-test('EventEmitter()', () => {
-    expect.assertions(1);
-    const router = new Router();
-    expect(router.sink).toBeInstanceOf(SinkMem);
-});
-
-test('EventEmitter() with sink argument', () => {
-    expect.assertions(1);
-    const sink = new SinkFs({ path: '/' });
-    const router = new Router(sink);
-    expect(router.sink).toBeInstanceOf(SinkFs);
-});
-
-// class instance properties
-test('router property', () => {
-    expect.assertions(1);
-    const router = new Router();
-    expect(router.router.name).toEqual(express.Router().name); // eslint-disable-line
-});
-
-// class instance events
-test('request start');
-test('request success');
-test('request error');
-
-// methods
-test('postFeedPersistCallback');
-
-test('postFeedResponseCallback', done => {
-    expect.assertions(6);
-    const router = new Router();
-    const json = jest.fn();
-    const req = {
-        method: 'POST',
-        path: '/feed',
-    };
-    const res = {
-        json,
-        status(responseStatus) {
-            expect(responseStatus).toBe(200);
-            return this;
-        },
-        locals: { response: { file: 'foo' }, track: 'bar' },
-    };
-    router.on('request success', (track, method, path, file) => {
-        expect(track).toBe('bar');
-        expect(method).toBe('POST');
-        expect(path).toBe('/feed');
-        expect(file).toBe('foo');
-        expect(json).toHaveBeenCalledWith({ file: 'foo' });
-        done();
-    });
-
-    router.postFeedResponseCallback()(req, res);
-});
-
-test('postBundleParseCallback');
-test('postBundleValidateCallback');
-test('postBundleResponseCallback');
-test('getFileCallback');
-test('getTestFileCallback');
-
-test('statusErrors: json', () => {
-    expect.assertions(1);
-    const router = new Router();
-    const req = {
-        xhr: true,
-    };
-    const err = {
-        output: {
-            payload: { statusCode: 'foo' },
-        },
-    };
-    const json = jest.fn();
-    const res = {
-        json,
-        status() {
-            return res;
-        },
-    };
-
-    router.statusErrors()(err, req, res);
-
-    expect(json).toHaveBeenCalledWith({ statusCode: 'foo' });
-});
-
-test('statusErrors: html', () => {
-    expect.assertions(1);
-    const router = new Router();
-    const req = {
-        accepts() {
-            return 'html';
-        },
-    };
-    const err = {
-        output: {
-            payload: { statusCode: 'foo', error: 'foo' },
-        },
-    };
-    const send = jest.fn();
-    const res = {
-        send,
-        status() {
-            return res;
-        },
-    };
-
-    router.statusErrors()(err, req, res);
-
-    expect(send).toHaveBeenCalledWith('<html><body><h1>foo</h1></body></html>');
-});
-
-test('statusErrors: text', () => {
-    expect.assertions(1);
-    const router = new Router();
-    const req = {
-        accepts() {
-            return 'text';
-        },
-    };
-    const err = {
-        output: {
-            payload: { statusCode: 'foo', error: 'foo' },
-        },
-    };
-    const send = jest.fn();
-    const res = {
-        send,
-        status() {
-            return res;
-        },
-    };
-
-    router.statusErrors()(err, req, res);
-
-    expect(send).toHaveBeenCalledWith('foo');
-});
-
-test('statusErrors: default', () => {
-    expect.assertions(1);
-    const router = new Router();
-    const req = {
-        accepts() {
-            return 'foo';
-        },
-    };
-    const err = {
-        output: {
-            payload: { statusCode: 'foo', error: 'foo' },
-        },
-    };
-    const send = jest.fn();
-    const res = {
-        send,
-        status() {
-            return res;
-        },
-    };
-
-    router.statusErrors()(err, req, res);
-
-    expect(send).toHaveBeenCalledWith('Not Acceptable');
-});
-
 const singleFeed = [
     {
         id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
@@ -192,6 +27,278 @@ const singleFeed = [
         file: './assets/js/bar.js',
     },
 ];
+
+describe('Router class', () => {
+    test('new Router() with no arguments', () => {
+        expect.assertions(1);
+        const router = new Router();
+        expect(router.sink).toBeInstanceOf(SinkMem);
+    });
+
+    test('new Router(sink) with sink argument', () => {
+        expect.assertions(1);
+        const sink = new SinkFs({ path: '/' });
+        const router = new Router(sink);
+        expect(router.sink).toBeInstanceOf(SinkFs);
+    });
+
+    test('new Router().router property', () => {
+        expect.assertions(1);
+        const router = new Router();
+        expect(router.router.name).toEqual(express.Router().name); // eslint-disable-line
+    });
+});
+
+describe('Router instance methods', () => {
+    test('postFeedResponseCallback', done => {
+        expect.assertions(6);
+        const router = new Router();
+        const json = jest.fn();
+        const req = {
+            method: 'POST',
+            path: '/feed',
+        };
+        const res = {
+            json,
+            status(responseStatus) {
+                expect(responseStatus).toBe(200);
+                return this;
+            },
+            locals: { response: { file: 'foo' }, track: 'bar' },
+        };
+        router.on('request success', (track, method, path, file) => {
+            expect(track).toBe('bar');
+            expect(method).toBe('POST');
+            expect(path).toBe('/feed');
+            expect(file).toBe('foo');
+            expect(json).toHaveBeenCalledWith({ file: 'foo' });
+            done();
+        });
+
+        router.postFeedResponseCallback()(req, res);
+    });
+
+    test('getTestFileCallback: secure', () => {
+        expect.assertions(2);
+        const router = new Router();
+        const send = jest.fn();
+        const req = {
+            params: { file: 'bar' },
+            headers: { host: 'foo' },
+            secure: true,
+        };
+        const res = {
+            send,
+            status(responseStatus) {
+                expect(responseStatus).toBe(200);
+                return this;
+            },
+        };
+
+        router.getTestFileCallback()(req, res);
+        expect(send.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('getTestFileCallback: insecure', () => {
+        expect.assertions(2);
+        const router = new Router();
+        const send = jest.fn();
+        const req = {
+            params: { file: 'bar' },
+            headers: { host: 'foo' },
+            secure: false,
+        };
+        const res = {
+            send,
+            status(responseStatus) {
+                expect(responseStatus).toBe(200);
+                return this;
+            },
+        };
+
+        router.getTestFileCallback()(req, res);
+        expect(send.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('statusErrors: json', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const req = {
+            xhr: true,
+        };
+        const err = {
+            output: {
+                payload: { statusCode: 'foo' },
+            },
+        };
+        const json = jest.fn();
+        const res = {
+            json,
+            status() {
+                return res;
+            },
+        };
+
+        router.statusErrors()(err, req, res);
+
+        expect(json).toHaveBeenCalledWith({ statusCode: 'foo' });
+    });
+
+    test('statusErrors: html', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const req = {
+            accepts() {
+                return 'html';
+            },
+        };
+        const err = {
+            output: {
+                payload: { statusCode: 'foo', error: 'foo' },
+            },
+        };
+        const send = jest.fn();
+        const res = {
+            send,
+            status() {
+                return res;
+            },
+        };
+
+        router.statusErrors()(err, req, res);
+
+        expect(send).toHaveBeenCalledWith(
+            '<html><body><h1>foo</h1></body></html>'
+        );
+    });
+
+    test('statusErrors: text', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const req = {
+            accepts() {
+                return 'text';
+            },
+        };
+        const err = {
+            output: {
+                payload: { statusCode: 'foo', error: 'foo' },
+            },
+        };
+        const send = jest.fn();
+        const res = {
+            send,
+            status() {
+                return res;
+            },
+        };
+
+        router.statusErrors()(err, req, res);
+
+        expect(send).toHaveBeenCalledWith('foo');
+    });
+
+    test('statusErrors: default', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const req = {
+            accepts() {
+                return 'foo';
+            },
+        };
+        const err = {
+            output: {
+                payload: { statusCode: 'foo', error: 'foo' },
+            },
+        };
+        const send = jest.fn();
+        const res = {
+            send,
+            status() {
+                return res;
+            },
+        };
+
+        router.statusErrors()(err, req, res);
+
+        expect(send).toHaveBeenCalledWith('Not Acceptable');
+    });
+
+    test('onError', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const next = jest.fn();
+        const error = new Error('bar');
+
+        router.onError(next)(error);
+
+        expect(next.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('onError with message', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const next = jest.fn();
+        const message = 'foo';
+        const error = new Error('bar');
+
+        router.onError(next, message)(error);
+
+        expect(next.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('onPipelineEmpty', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const next = jest.fn();
+
+        router.onPipelineEmpty(next)();
+
+        expect(next.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('onFileNotFound', () => {
+        expect.assertions(2);
+        const router = new Router();
+        const res = {
+            locals: { excluded: [] },
+        };
+        const file = 'foo';
+
+        router.onFileNotFound(res)(file);
+
+        expect(res.locals.excluded).toHaveLength(1);
+        expect(res.locals.excluded[0]).toBe('foo');
+    });
+
+    test('onNotFound', () => {
+        expect.assertions(1);
+        const router = new Router();
+        const next = jest.fn();
+
+        router.onNotFound(next)();
+
+        expect(next.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('buildUri: secure', () => {
+        expect.assertions(1);
+        const router = new Router();
+
+        const uri = router.buildUri('bar', 'foo', true);
+
+        expect(uri).toBe('https://foo/bar/');
+    });
+
+    test('buildUri: insecure', () => {
+        expect.assertions(1);
+        const router = new Router();
+
+        const uri = router.buildUri('bar', 'foo', false);
+
+        expect(uri).toBe('http://foo/bar/');
+    });
+});
 
 describe('uploading feeds', () => {
     let router;
@@ -306,7 +413,14 @@ describe('bundling assets', () => {
         supertest(server)
             .post('/bundle')
             .send(bundles)
-            .expect(202));
+            .expect(200)
+            .then(({ body }) => {
+                body.response.uri = body.response.uri.replace(
+                    /http:\/\/[0-9.:]+/,
+                    ''
+                );
+                expect(body).toMatchSnapshot();
+            }));
 
     test('/bundle with body as empty array', () =>
         supertest(server)
@@ -364,7 +478,7 @@ describe('bundling feeds', () => {
 
             ({ body: { response: { file: fileName } } } = await post('/bundle')
                 .send(responses.map(({ body: { file } }) => file))
-                .expect(202));
+                .expect(200));
         } catch (err) {
             throw err;
         }

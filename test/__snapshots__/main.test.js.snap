@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Router instance methods getTestFileCallback: insecure 1`] = `
+"<!doctype html>
+                          <html>
+                          <head><script type=\\"text/javascript\\" src=\\"http://foo/bundle/bar\\"></script></head>
+                          <body><p>Please open developer console</p></body>
+                          </html>"
+`;
+
+exports[`Router instance methods getTestFileCallback: secure 1`] = `
+"<!doctype html>
+                          <html>
+                          <head><script type=\\"text/javascript\\" src=\\"https://foo/bundle/bar\\"></script></head>
+                          <body><p>Please open developer console</p></body>
+                          </html>"
+`;
+
+exports[`Router instance methods onError 1`] = `[Error: bar]`;
+
+exports[`Router instance methods onError with message 1`] = `[Error: foo: bar]`;
+
+exports[`Router instance methods onNotFound 1`] = `[Error: Not Found]`;
+
+exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load any of the resources in the payload from storage]`;
+
+exports[`bundling assets /bundle 1`] = `
+Object {
+  "excluded": Array [],
+  "included": Array [
+    "f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json",
+  ],
+  "payload": Array [
+    "f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json",
+  ],
+  "response": Object {
+    "file": "ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
+    "uri": "/bundle/ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
+  },
+}
+`;
