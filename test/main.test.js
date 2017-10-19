@@ -310,12 +310,17 @@ describe('uploading feeds', () => {
         ({ server, port } = await createTestServerFor(router.router()));
     });
 
-    // This test is correct, implementation is wrong
-    // test('/feed', async () =>
-    //     supertest(server)
-    //         .post('/feed')
-    //         .send([])
-    //         .expect(400));
+    test('/feed: empty array', async () =>
+        supertest(server)
+            .post('/feed')
+            .send([])
+            .expect(400));
+
+    test('/feed: empty string', async () =>
+        supertest(server)
+            .post('/feed')
+            .send('')
+            .expect(400));
 
     test('/feed', async () =>
         supertest(server)
