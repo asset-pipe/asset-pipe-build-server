@@ -37,7 +37,7 @@
     "convict": "^4.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "joi": "^11.3.4",
+    "joi": "^13.0.1",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
