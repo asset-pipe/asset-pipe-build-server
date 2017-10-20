@@ -20,15 +20,6 @@ function createTestServerFor(router) {
     });
 }
 
-const singleFeed = [
-    {
-        id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
-        source: '"use strict";module.exports.world=function(){return"world"};',
-        deps: {},
-        file: './assets/js/bar.js',
-    },
-];
-
 describe('Router class', () => {
     test('new Router() with no arguments', () => {
         expect.assertions(1);
@@ -289,31 +280,40 @@ describe('Router instance methods', () => {
     });
 });
 
-describe('uploading feeds', () => {
+describe('uploading js feeds', () => {
     let router;
     let server;
     let port;
+    const singleFeed = [
+        {
+            id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
+            source:
+                '"use strict";module.exports.world=function(){return"world"};',
+            deps: {},
+            file: './assets/js/bar.js',
+        },
+    ];
 
     beforeEach(async () => {
         router = new Router();
         ({ server, port } = await createTestServerFor(router.router()));
     });
 
-    test('/feed: empty array', async () =>
+    test('/feed/js: empty array', async () =>
         supertest(server)
-            .post('/feed')
+            .post('/feed/js')
             .send([])
             .expect(400));
 
-    test('/feed: empty string', async () =>
+    test('/feed/js: empty string', async () =>
         supertest(server)
-            .post('/feed')
+            .post('/feed/js')
             .send('')
             .expect(400));
 
-    test('/feed', async () =>
+    test('/feed/js', async () =>
         supertest(server)
-            .post('/feed')
+            .post('/feed/js')
             .send(singleFeed)
             .expect(200)
             .then(res => {
@@ -335,13 +335,22 @@ describe('downloading feeds', () => {
     let file;
     let get;
     let post;
+    const singleFeed = [
+        {
+            id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
+            source:
+                '"use strict";module.exports.world=function(){return"world"};',
+            deps: {},
+            file: './assets/js/bar.js',
+        },
+    ];
 
     beforeEach(async () => {
         router = new Router();
         ({ server } = await createTestServerFor(router.router()));
         ({ get, post } = supertest(server));
 
-        return post('/feed')
+        return post('/feed/js')
             .send(singleFeed)
             .expect(200)
             .then(({ body }) => {
@@ -378,7 +387,7 @@ describe('downloading feeds', () => {
     afterEach(() => server.close());
 });
 
-describe('bundling assets', () => {
+describe('bundling js assets', () => {
     let server;
     let bundles;
 
@@ -387,7 +396,7 @@ describe('bundling assets', () => {
         ({ server } = await createTestServerFor(router.router()));
         const post = supertest(server).post;
         return Promise.all([
-            post('/feed')
+            post('/feed/js')
                 .send([
                     {
                         id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
@@ -403,9 +412,9 @@ describe('bundling assets', () => {
         });
     });
 
-    test('/bundle', () =>
+    test('/bundle/js', () =>
         supertest(server)
-            .post('/bundle')
+            .post('/bundle/js')
             .send(bundles)
             .expect(200)
             .then(({ body }) => {
@@ -416,15 +425,15 @@ describe('bundling assets', () => {
                 expect(body).toMatchSnapshot();
             }));
 
-    test('/bundle with body as empty array', () =>
+    test('/bundle/js with body as empty array', () =>
         supertest(server)
-            .post('/bundle')
+            .post('/bundle/js')
             .send([])
             .expect(400));
 
-    test('/bundle with empty body', () =>
+    test('/bundle/js with empty body', () =>
         supertest(server)
-            .post('/bundle')
+            .post('/bundle/js')
             .expect(400));
 
     afterEach(() => server.close());
@@ -460,17 +469,19 @@ describe('bundling feeds', () => {
             },
         ];
 
-        const uploadFeed1 = post('/feed')
+        const uploadFeed1 = post('/feed/js')
             .send(feed1)
             .expect(200);
-        const uploadFeed2 = post('/feed')
+        const uploadFeed2 = post('/feed/js')
             .send(feed2)
             .expect(200);
 
         try {
             const responses = await Promise.all([uploadFeed1, uploadFeed2]);
 
-            ({ body: { response: { file: fileName } } } = await post('/bundle')
+            ({ body: { response: { file: fileName } } } = await post(
+                '/bundle/js'
+            )
                 .send(responses.map(({ body: { file } }) => file))
                 .expect(200));
         } catch (err) {

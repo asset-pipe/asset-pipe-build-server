@@ -38,7 +38,7 @@ exports[`Router instance methods onNotFound 1`] = `[Error: Not Found]`;
 
 exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load any of the resources in the payload from storage]`;
 
-exports[`bundling assets /bundle 1`] = `
+exports[`bundling js assets /bundle/js 1`] = `
 Object {
   "excluded": Array [],
   "included": Array [
