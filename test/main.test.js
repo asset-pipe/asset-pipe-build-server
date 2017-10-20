@@ -387,7 +387,7 @@ describe('downloading feeds', () => {
     afterEach(() => server.close());
 });
 
-describe('bundling js assets', () => {
+describe('bundling single js feed', () => {
     let server;
     let bundles;
 
@@ -418,10 +418,7 @@ describe('bundling js assets', () => {
             .send(bundles)
             .expect(200)
             .then(({ body }) => {
-                body.response.uri = body.response.uri.replace(
-                    /http:\/\/[0-9.:]+/,
-                    ''
-                );
+                body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
                 expect(body).toMatchSnapshot();
             }));
 
@@ -439,7 +436,7 @@ describe('bundling js assets', () => {
     afterEach(() => server.close());
 });
 
-describe('bundling feeds', () => {
+describe('bundling multiple js feeds', () => {
     let server;
     let get;
     let fileName;
@@ -479,11 +476,13 @@ describe('bundling feeds', () => {
         try {
             const responses = await Promise.all([uploadFeed1, uploadFeed2]);
 
-            ({ body: { response: { file: fileName } } } = await post(
-                '/bundle/js'
-            )
+            const { body } = await post('/bundle/js')
                 .send(responses.map(({ body: { file } }) => file))
-                .expect(200));
+                .expect(200);
+
+            fileName = body.file;
+            body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+            expect(body).toMatchSnapshot();
         } catch (err) {
             throw err;
         }

@@ -38,18 +38,16 @@ exports[`Router instance methods onNotFound 1`] = `[Error: Not Found]`;
 
 exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load any of the resources in the payload from storage]`;
 
-exports[`bundling js assets /bundle/js 1`] = `
+exports[`bundling multiple js feeds /bundle/:file 1`] = `
 Object {
-  "excluded": Array [],
-  "included": Array [
-    "f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json",
-  ],
-  "payload": Array [
-    "f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json",
-  ],
-  "response": Object {
-    "file": "ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
-    "uri": "/bundle/ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
-  },
+  "file": "1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
+  "uri": "/bundle/1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
+}
+`;
+
+exports[`bundling single js feed /bundle/js 1`] = `
+Object {
+  "file": "ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
+  "uri": "/bundle/ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
 }
 `;
