@@ -36,6 +36,28 @@ exports[`Router instance methods onError with message 1`] = `[Error: foo: bar]`;
 
 exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load 1 or more of the resources in the payload from storage]`;
 
+exports[`bundling multiple css feeds /bundle/:file 1`] = `
+Object {
+  "file": "573e23f80bfc345ac1c5b9f21035e6a374a865d52e6e5de31ef38679abf75136.css",
+  "uri": "/bundle/573e23f80bfc345ac1c5b9f21035e6a374a865d52e6e5de31ef38679abf75136.css",
+}
+`;
+
+exports[`bundling multiple css feeds /bundle/:file 2`] = `
+"/* my-module-1/main.css */
+h2: { color: green; }
+/* my-module-2/main.css */
+h1 { color:blue; }
+"
+`;
+
+exports[`bundling multiple css feeds /bundle/css with multiple invalid bundle reference 1`] = `
+Object {
+  "file": "573e23f80bfc345ac1c5b9f21035e6a374a865d52e6e5de31ef38679abf75136.css",
+  "uri": "/bundle/573e23f80bfc345ac1c5b9f21035e6a374a865d52e6e5de31ef38679abf75136.css",
+}
+`;
+
 exports[`bundling multiple js feeds /bundle/:file 1`] = `
 Object {
   "file": "1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
@@ -43,10 +65,26 @@ Object {
 }
 `;
 
+exports[`bundling multiple js feeds /bundle/:file 2`] = `
+"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({\\"c645cf572a8f5acf8716e4846b408d3b1ca45c58\\":[function(require,module,exports){
+\\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
+},{}],\\"d645cf572a8f5srf8716e4846b408d3b1ca45c23\\":[function(require,module,exports){
+\\"use strict\\";module.exports.world=function(){return\\"world\\"};
+},{}]},{},[]);
+"
+`;
+
 exports[`bundling multiple js feeds /bundle/js with multiple invalid bundle reference 1`] = `
 Object {
   "file": "1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
   "uri": "/bundle/1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
+}
+`;
+
+exports[`bundling single css feed /bundle/css 1`] = `
+Object {
+  "file": "03df167d99b207d7fd964f81df871ce8211e02e34e52c014f3ef892e9d6017b0.css",
+  "uri": "/bundle/03df167d99b207d7fd964f81df871ce8211e02e34e52c014f3ef892e9d6017b0.css",
 }
 `;
 

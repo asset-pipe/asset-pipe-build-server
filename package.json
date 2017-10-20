@@ -26,6 +26,7 @@
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
   },
   "dependencies": {
+    "asset-pipe-css-reader": "^1.0.0",
     "asset-pipe-js-reader": "^1.0.0-beta.9",
     "asset-pipe-sink-fs": "^1.0.0-beta.9",
     "asset-pipe-sink-mem": "^1.0.0-beta.5",

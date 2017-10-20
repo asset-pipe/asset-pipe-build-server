@@ -315,6 +315,46 @@ describe('uploading js feeds', () => {
     afterEach(() => server.close());
 });
 
+describe('uploading css feeds', () => {
+    let router;
+    let server;
+    const singleFeed = [
+        {
+            id:
+                '4f32a8e1c6cf6e5885241f3ea5fee583560b2dfde38b21ec3f9781c91d58f42e',
+            name: 'my-module-1',
+            version: '1.0.1',
+            file: 'my-module-1/main.css',
+            content: '/* my-module-1/main.css */\n',
+        },
+    ];
+
+    beforeEach(async () => {
+        router = new Router();
+        ({ server } = await createTestServerFor(router.router()));
+    });
+
+    test('/feed/css: empty array', async () =>
+        supertest(server)
+            .post('/feed/css')
+            .send([])
+            .expect(400));
+
+    test('/feed/css: empty string', async () =>
+        supertest(server)
+            .post('/feed/css')
+            .send('')
+            .expect(400));
+
+    test('/feed/css', async () =>
+        supertest(server)
+            .post('/feed/css')
+            .send(singleFeed)
+            .expect(200));
+
+    afterEach(() => server.close());
+});
+
 describe('downloading feeds', () => {
     let router;
     let server;
@@ -480,11 +520,140 @@ describe('bundling multiple js feeds', () => {
         }
     });
 
-    test('/bundle/:file', () => get(`/bundle/${fileName}`).expect(200));
+    test('/bundle/:file', async () => {
+        expect.assertions(2);
+        const { text } = await get(`/bundle/${fileName}`).expect(200);
+        expect(text).toMatchSnapshot();
+    });
 
     test('/bundle/js with multiple invalid bundle reference', () =>
         supertest(server)
             .post('/bundle/js')
+            .send(['completelyfake.json', 'alsocompletelyfake.json'])
+            .expect(404));
+
+    afterEach(() => server.close());
+});
+
+describe('bundling single css feed', () => {
+    let server;
+    let bundles;
+
+    beforeEach(async () => {
+        const router = new Router();
+        ({ server } = await createTestServerFor(router.router()));
+        const post = supertest(server).post;
+        return Promise.all([
+            post('/feed/css')
+                .send([
+                    {
+                        id:
+                            '4f32a8e1c6cf6e5885241f3ea5fee583560b2dfde38b21ec3f9781c91d58f42e',
+                        name: 'my-module-1',
+                        version: '1.0.1',
+                        file: 'my-module-1/main.css',
+                        content: '/* my-module-1/main.css */\n',
+                    },
+                ])
+                .expect(200),
+        ]).then(result => {
+            bundles = result.map(({ body: { file } }) => file);
+        });
+    });
+
+    test('/bundle/css', () =>
+        supertest(server)
+            .post('/bundle/css')
+            .send(bundles)
+            .expect(200)
+            .then(({ body }) => {
+                body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+                expect(body).toMatchSnapshot();
+            }));
+
+    test('/bundle/css with body as empty array', () =>
+        supertest(server)
+            .post('/bundle/css')
+            .send([])
+            .expect(400));
+
+    test('/bundle/css with empty body', () =>
+        supertest(server)
+            .post('/bundle/css')
+            .expect(400));
+
+    test('/bundle/css with invalid bundle reference', () =>
+        supertest(server)
+            .post('/bundle/css')
+            .send(['completelyfake.json'])
+            .expect(404));
+
+    afterEach(() => server.close());
+});
+
+describe('bundling multiple css feeds', () => {
+    let server;
+    let get;
+    let fileName;
+
+    beforeEach(async () => {
+        const router = new Router();
+        let post;
+        ({ server } = await createTestServerFor(router.router()));
+
+        ({ get, post } = supertest(server)); // eslint-disable-line prefer-const
+        const feed1 = [
+            {
+                id:
+                    '4f32a8e1c6cf6e5885241f3ea5fee583560b2dfde38b21ec3f9781c91d58f42e',
+                name: 'my-module-1',
+                version: '1.0.1',
+                file: 'my-module-1/main.css',
+                content: '/* my-module-1/main.css */\nh2: { color: green; }\n',
+            },
+        ];
+        const feed2 = [
+            {
+                id:
+                    '2f32a8c1c6cf6e5885f41f3ea5fee583560b2dfde38b21ec3f9781c91d58f45b',
+                name: 'my-module-2',
+                version: '1.0.1',
+                file: 'my-module-2/main.css',
+                content: '/* my-module-2/main.css */\nh1 { color:blue; }\n',
+            },
+        ];
+
+        const uploadFeed1 = post('/feed/css')
+            .send(feed1)
+            .expect(200);
+        const uploadFeed2 = post('/feed/css')
+            .send(feed2)
+            .expect(200);
+
+        try {
+            const responses = await Promise.all([uploadFeed1, uploadFeed2]);
+
+            const { body } = await post('/bundle/css')
+                .send(responses.map(({ body: { file } }) => file))
+                .expect(200);
+
+            fileName = body.file;
+            body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+            expect(body).toMatchSnapshot();
+        } catch (err) {
+            throw err;
+        }
+    });
+
+    test('/bundle/:file', async () => {
+        expect.assertions(2);
+        const { text } = await get(`/bundle/${fileName}`).expect(200);
+        expect(text).toMatchSnapshot();
+    });
+
+    test('/bundle/css with multiple invalid bundle reference', () =>
+        supertest(server)
+            .post('/bundle/css')
             .send(['completelyfake.json', 'alsocompletelyfake.json'])
             .expect(404));
 
