@@ -2,18 +2,32 @@
 
 exports[`Router instance methods getTestFileCallback: insecure 1`] = `
 "<!doctype html>
-                          <html>
-                          <head><script type=\\"text/javascript\\" src=\\"http://foo/bundle/bar\\"></script></head>
-                          <body><p>Please open developer console</p></body>
-                          </html>"
+<html>
+
+  <head>
+    <script type=\\"text/javascript\\" src=\\"http://foo/bundle/bar\\"></script>
+  </head>
+
+  <body>
+    <p>Please open developer console</p>
+  </body>
+
+</html>"
 `;
 
 exports[`Router instance methods getTestFileCallback: secure 1`] = `
 "<!doctype html>
-                          <html>
-                          <head><script type=\\"text/javascript\\" src=\\"https://foo/bundle/bar\\"></script></head>
-                          <body><p>Please open developer console</p></body>
-                          </html>"
+<html>
+
+  <head>
+    <script type=\\"text/javascript\\" src=\\"https://foo/bundle/bar\\"></script>
+  </head>
+
+  <body>
+    <p>Please open developer console</p>
+  </body>
+
+</html>"
 `;
 
 exports[`Router instance methods onError 1`] = `[Error: bar]`;

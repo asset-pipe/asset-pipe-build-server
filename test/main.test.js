@@ -5,6 +5,7 @@ const SinkMem = require('asset-pipe-sink-mem');
 const SinkFs = require('asset-pipe-sink-fs');
 const Router = require('../lib/main');
 const supertest = require('supertest');
+const pretty = require('pretty');
 
 function createTestServerFor(router) {
     const app = express();
@@ -51,7 +52,7 @@ describe('Router class', () => {
 
 describe('Router instance methods', () => {
     test('postFeedResponseCallback', done => {
-        expect.assertions(6);
+        expect.assertions(5);
         const router = new Router();
         const json = jest.fn();
         const req = {
@@ -60,10 +61,6 @@ describe('Router instance methods', () => {
         };
         const res = {
             json,
-            status(responseStatus) {
-                expect(responseStatus).toBe(200);
-                return this;
-            },
             locals: { response: { file: 'foo' }, track: 'bar' },
         };
         router.on('request success', (track, method, path, file) => {
@@ -79,7 +76,7 @@ describe('Router instance methods', () => {
     });
 
     test('getTestFileCallback: secure', () => {
-        expect.assertions(2);
+        expect.assertions(1);
         const router = new Router();
         const send = jest.fn();
         const req = {
@@ -89,18 +86,14 @@ describe('Router instance methods', () => {
         };
         const res = {
             send,
-            status(responseStatus) {
-                expect(responseStatus).toBe(200);
-                return this;
-            },
         };
 
         router.getTestFileCallback()(req, res);
-        expect(send.mock.calls[0][0]).toMatchSnapshot();
+        expect(pretty(send.mock.calls[0][0])).toMatchSnapshot();
     });
 
     test('getTestFileCallback: insecure', () => {
-        expect.assertions(2);
+        expect.assertions(1);
         const router = new Router();
         const send = jest.fn();
         const req = {
@@ -110,14 +103,10 @@ describe('Router instance methods', () => {
         };
         const res = {
             send,
-            status(responseStatus) {
-                expect(responseStatus).toBe(200);
-                return this;
-            },
         };
 
         router.getTestFileCallback()(req, res);
-        expect(send.mock.calls[0][0]).toMatchSnapshot();
+        expect(pretty(send.mock.calls[0][0])).toMatchSnapshot();
     });
 
     test('statusErrors: json', () => {
