@@ -238,27 +238,13 @@ describe('Router instance methods', () => {
     });
 
     test('onFileNotFound', () => {
-        expect.assertions(2);
-        const router = new Router();
-        const res = {
-            locals: { excluded: [] },
-        };
-        const file = 'foo';
-
-        router.onFileNotFound(res)(file);
-
-        expect(res.locals.excluded).toHaveLength(1);
-        expect(res.locals.excluded[0]).toBe('foo');
-    });
-
-    test('onNotFound', () => {
         expect.assertions(1);
         const router = new Router();
         const next = jest.fn();
 
-        router.onNotFound(next)();
+        router.onFileNotFound(next)();
 
-        expect(next.mock.calls[0][0]).toMatchSnapshot();
+        expect(next).toHaveBeenCalled();
     });
 
     test('buildUri: secure', () => {
@@ -433,6 +419,12 @@ describe('bundling single js feed', () => {
             .post('/bundle/js')
             .expect(400));
 
+    test('/bundle/js with invalid bundle reference', () =>
+        supertest(server)
+            .post('/bundle/js')
+            .send(['completelyfake.json'])
+            .expect(404));
+
     afterEach(() => server.close());
 });
 
@@ -489,6 +481,12 @@ describe('bundling multiple js feeds', () => {
     });
 
     test('/bundle/:file', () => get(`/bundle/${fileName}`).expect(200));
+
+    test('/bundle/js with multiple invalid bundle reference', () =>
+        supertest(server)
+            .post('/bundle/js')
+            .send(['completelyfake.json', 'alsocompletelyfake.json'])
+            .expect(404));
 
     afterEach(() => server.close());
 });

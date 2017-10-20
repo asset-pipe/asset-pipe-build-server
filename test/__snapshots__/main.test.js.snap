@@ -34,11 +34,16 @@ exports[`Router instance methods onError 1`] = `[Error: bar]`;
 
 exports[`Router instance methods onError with message 1`] = `[Error: foo: bar]`;
 
-exports[`Router instance methods onNotFound 1`] = `[Error: Not Found]`;
-
-exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load any of the resources in the payload from storage]`;
+exports[`Router instance methods onPipelineEmpty 1`] = `[Error: Could not load 1 or more of the resources in the payload from storage]`;
 
 exports[`bundling multiple js feeds /bundle/:file 1`] = `
+Object {
+  "file": "1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
+  "uri": "/bundle/1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
+}
+`;
+
+exports[`bundling multiple js feeds /bundle/js with multiple invalid bundle reference 1`] = `
 Object {
   "file": "1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
   "uri": "/bundle/1cd8a3c4418251f677b6cafb19e767feabd9a795ef3c42d459e3d0f978e30ce0.js",
