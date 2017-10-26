@@ -94,3 +94,14 @@ Object {
   "uri": "/bundle/ecf93dbb50579f1f859cbcb901a184d9cdc75d6f6bca48d43aadf241c924e3bc.js",
 }
 `;
+
+exports[`downloading feeds /feed/:file 1`] = `
+Array [
+  Object {
+    "deps": Object {},
+    "file": "./assets/js/bar.js",
+    "id": "c645cf572a8f5acf8716e4846b408d3b1ca45c58",
+    "source": "\\"use strict\\";module.exports.world=function(){return\\"world\\"};",
+  },
+]
+`;

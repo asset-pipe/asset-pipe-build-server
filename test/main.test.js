@@ -270,6 +270,7 @@ describe('uploading js feeds', () => {
     let router;
     let server;
     let port;
+    let post;
     const singleFeed = [
         {
             id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
@@ -283,34 +284,33 @@ describe('uploading js feeds', () => {
     beforeEach(async () => {
         router = new Router();
         ({ server, port } = await createTestServerFor(router.router()));
+        post = supertest(server).post;
     });
 
     test('/feed/js: empty array', async () =>
-        supertest(server)
-            .post('/feed/js')
+        post('/feed/js')
             .send([])
             .expect(400));
 
     test('/feed/js: empty string', async () =>
-        supertest(server)
-            .post('/feed/js')
+        post('/feed/js')
             .send('')
             .expect(400));
 
-    test('/feed/js', async () =>
-        supertest(server)
-            .post('/feed/js')
+    test('/feed/js', async () => {
+        expect.assertions(1);
+        const { body } = await post('/feed/js')
             .send(singleFeed)
-            .expect(200)
-            .then(res => {
-                expect(res.body).toEqual({
-                    file:
-                        'f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json',
-                    id:
-                        'f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3',
-                    uri: `http://127.0.0.1:${port}/feed/f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json`,
-                });
-            }));
+            .expect(200);
+
+        expect(body).toEqual({
+            file:
+                'f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json',
+            id:
+                'f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3',
+            uri: `http://127.0.0.1:${port}/feed/f652e904f72daa8bd884df867b69861bcb90be9508a1d558f05070d5d044d0d3.json`,
+        });
+    });
 
     afterEach(() => server.close());
 });
@@ -376,36 +376,27 @@ describe('downloading feeds', () => {
         ({ server } = await createTestServerFor(router.router()));
         ({ get, post } = supertest(server));
 
-        return post('/feed/js')
+        const { body } = await post('/feed/js')
             .send(singleFeed)
-            .expect(200)
-            .then(({ body }) => {
-                file = body.file;
-            });
+            .expect(200);
+
+        file = body.file;
     });
 
-    test('/feed/:file', () => {
+    test('/feed/:file', async () => {
+        expect.assertions(5);
         router.on('request success', (track, method, path, fileName) => {
             expect(typeof track).toBe('string');
             expect(method).toBe('GET');
             expect(path).toBe(`/feed/${file}`);
             expect(fileName).toBe(`${file}`);
         });
-        return get(`/feed/${file}`)
+        const { body } = await get(`/feed/${file}`)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
-            .expect(200)
-            .then(({ body }) => {
-                expect(body).toEqual([
-                    {
-                        id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
-                        source:
-                            '"use strict";module.exports.world=function(){return"world"};',
-                        deps: {},
-                        file: './assets/js/bar.js',
-                    },
-                ]);
-            });
+            .expect(200);
+
+        expect(body).toMatchSnapshot();
     });
 
     test('/feed/:file', () => get(`/feed/doesnotexist`).expect(400));
@@ -416,37 +407,37 @@ describe('downloading feeds', () => {
 describe('bundling single js feed', () => {
     let server;
     let bundles;
+    const singleFeed = [
+        {
+            id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
+            source:
+                '"use strict";module.exports.world=function(){return"world"};',
+            deps: {},
+            file: './assets/js/bar.js',
+        },
+    ];
 
     beforeEach(async () => {
         const router = new Router();
         ({ server } = await createTestServerFor(router.router()));
-        const post = supertest(server).post;
-        return Promise.all([
-            post('/feed/js')
-                .send([
-                    {
-                        id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
-                        source:
-                            '"use strict";module.exports.world=function(){return"world"};',
-                        deps: {},
-                        file: './assets/js/bar.js',
-                    },
-                ])
-                .expect(200),
-        ]).then(result => {
-            bundles = result.map(({ body: { file } }) => file);
-        });
+
+        const { body } = await supertest(server)
+            .post('/feed/js')
+            .send(singleFeed)
+            .expect(200);
+        bundles = [body.file];
     });
 
-    test('/bundle/js', () =>
-        supertest(server)
+    test('/bundle/js', async () => {
+        expect.assertions(1);
+        const { body } = await supertest(server)
             .post('/bundle/js')
             .send(bundles)
-            .expect(200)
-            .then(({ body }) => {
-                body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
-                expect(body).toMatchSnapshot();
-            }));
+            .expect(200);
+
+        body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+        expect(body).toMatchSnapshot();
+    });
 
     test('/bundle/js with body as empty array', () =>
         supertest(server)
@@ -472,31 +463,31 @@ describe('bundling multiple js feeds', () => {
     let server;
     let get;
     let fileName;
+    const feed1 = [
+        {
+            id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
+            source:
+                '"use strict";module.exports.hello=function(){return"hello"};',
+            deps: {},
+            file: './assets/js/hello.js',
+        },
+    ];
+    const feed2 = [
+        {
+            id: 'd645cf572a8f5srf8716e4846b408d3b1ca45c23',
+            source:
+                '"use strict";module.exports.world=function(){return"world"};',
+            deps: {},
+            file: './assets/js/world.js',
+        },
+    ];
 
     beforeEach(async () => {
+        expect.assertions(1);
         const router = new Router();
         let post;
         ({ server } = await createTestServerFor(router.router()));
-
         ({ get, post } = supertest(server)); // eslint-disable-line prefer-const
-        const feed1 = [
-            {
-                id: 'c645cf572a8f5acf8716e4846b408d3b1ca45c58',
-                source:
-                    '"use strict";module.exports.hello=function(){return"hello"};',
-                deps: {},
-                file: './assets/js/hello.js',
-            },
-        ];
-        const feed2 = [
-            {
-                id: 'd645cf572a8f5srf8716e4846b408d3b1ca45c23',
-                source:
-                    '"use strict";module.exports.world=function(){return"world"};',
-                deps: {},
-                file: './assets/js/world.js',
-            },
-        ];
 
         const uploadFeed1 = post('/feed/js')
             .send(feed1)
@@ -505,19 +496,15 @@ describe('bundling multiple js feeds', () => {
             .send(feed2)
             .expect(200);
 
-        try {
-            const responses = await Promise.all([uploadFeed1, uploadFeed2]);
+        const responses = await Promise.all([uploadFeed1, uploadFeed2]);
 
-            const { body } = await post('/bundle/js')
-                .send(responses.map(({ body: { file } }) => file))
-                .expect(200);
+        const { body } = await post('/bundle/js')
+            .send(responses.map(({ body: { file } }) => file))
+            .expect(200);
 
-            fileName = body.file;
-            body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
-            expect(body).toMatchSnapshot();
-        } catch (err) {
-            throw err;
-        }
+        fileName = body.file;
+        body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+        expect(body).toMatchSnapshot();
     });
 
     test('/bundle/:file', async () => {
@@ -538,38 +525,37 @@ describe('bundling multiple js feeds', () => {
 describe('bundling single css feed', () => {
     let server;
     let bundles;
+    const singleFeed = [
+        {
+            id:
+                '4f32a8e1c6cf6e5885241f3ea5fee583560b2dfde38b21ec3f9781c91d58f42e',
+            name: 'my-module-1',
+            version: '1.0.1',
+            file: 'my-module-1/main.css',
+            content: '/* my-module-1/main.css */\n',
+        },
+    ];
 
     beforeEach(async () => {
         const router = new Router();
         ({ server } = await createTestServerFor(router.router()));
         const post = supertest(server).post;
-        return Promise.all([
-            post('/feed/css')
-                .send([
-                    {
-                        id:
-                            '4f32a8e1c6cf6e5885241f3ea5fee583560b2dfde38b21ec3f9781c91d58f42e',
-                        name: 'my-module-1',
-                        version: '1.0.1',
-                        file: 'my-module-1/main.css',
-                        content: '/* my-module-1/main.css */\n',
-                    },
-                ])
-                .expect(200),
-        ]).then(result => {
-            bundles = result.map(({ body: { file } }) => file);
-        });
+        const { body } = await post('/feed/css')
+            .send(singleFeed)
+            .expect(200);
+        bundles = [body.file];
     });
 
-    test('/bundle/css', () =>
-        supertest(server)
+    test('/bundle/css', async () => {
+        expect.assertions(1);
+        const { body } = await supertest(server)
             .post('/bundle/css')
             .send(bundles)
-            .expect(200)
-            .then(({ body }) => {
-                body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
-                expect(body).toMatchSnapshot();
-            }));
+            .expect(200);
+
+        body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+        expect(body).toMatchSnapshot();
+    });
 
     test('/bundle/css with body as empty array', () =>
         supertest(server)
@@ -597,6 +583,7 @@ describe('bundling multiple css feeds', () => {
     let fileName;
 
     beforeEach(async () => {
+        expect.assertions(1);
         const router = new Router();
         let post;
         ({ server } = await createTestServerFor(router.router()));
@@ -630,19 +617,15 @@ describe('bundling multiple css feeds', () => {
             .send(feed2)
             .expect(200);
 
-        try {
-            const responses = await Promise.all([uploadFeed1, uploadFeed2]);
+        const responses = await Promise.all([uploadFeed1, uploadFeed2]);
 
-            const { body } = await post('/bundle/css')
-                .send(responses.map(({ body: { file } }) => file))
-                .expect(200);
+        const { body } = await post('/bundle/css')
+            .send(responses.map(({ body: { file } }) => file))
+            .expect(200);
 
-            fileName = body.file;
-            body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
-            expect(body).toMatchSnapshot();
-        } catch (err) {
-            throw err;
-        }
+        fileName = body.file;
+        body.uri = body.uri.replace(/http:\/\/[0-9.:]+/, '');
+        expect(body).toMatchSnapshot();
     });
 
     test('/bundle/:file', async () => {
