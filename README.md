@@ -39,13 +39,13 @@ The following configuration options are available:
 ### Start
 
 ```bash
-asset-pipe-build-server
+asset-pipe-server
 ```
 
 OR with configuration options:
 
 ```bash
-PORT=3321 LOG_LEVEL=info NODE_ENV=production asset-pipe-build-server
+PORT=3321 LOG_LEVEL=info NODE_ENV=production asset-pipe-server
 ```
 
 ## Endpoints
