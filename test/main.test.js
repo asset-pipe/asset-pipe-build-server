@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const SinkMem = require('asset-pipe-sink-mem');
-const SinkFs = require('asset-pipe-sink-fs');
+const SinkMem = require('@asset-pipe/sink-mem');
+const SinkFs = require('@asset-pipe/sink-fs');
 const Router = require('../lib/main');
 const supertest = require('supertest');
 const pretty = require('pretty');
