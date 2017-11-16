@@ -1,5 +1,5 @@
 {
-  "name": "asset-pipe-build-server",
+  "name": "@asset-pipe/server",
   "version": "0.0.0-development",
   "description": "Asset pipe build server",
   "license": "MIT",

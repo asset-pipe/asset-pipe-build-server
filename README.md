@@ -1,6 +1,6 @@
 <!-- TITLE/ -->
 
-<h1>asset-pipe-build-server</h1>
+<h1>@asset-pipe/server</h1>
 
 <!-- /TITLE -->
 
@@ -8,7 +8,7 @@
 <!-- BADGES/ -->
 
 <span class="badge-travisci"><a href="http://travis-ci.org/asset-pipe/asset-pipe-build-server" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/asset-pipe/asset-pipe-build-server/master.svg" alt="Travis CI Build Status" /></a></span>
-<span class="badge-npmversion"><a href="https://npmjs.org/package/asset-pipe-build-server" title="View this project on NPM"><img src="https://img.shields.io/npm/v/asset-pipe-build-server.svg" alt="NPM version" /></a></span>
+<span class="badge-npmversion"><a href="https://npmjs.org/package/@asset-pipe/server" title="View this project on NPM"><img src="https://img.shields.io/npm/v/@asset-pipe/server.svg" alt="NPM version" /></a></span>
 <span class="badge-daviddm"><a href="https://david-dm.org/asset-pipe/asset-pipe-build-server" title="View the status of this project's dependencies on DavidDM"><img src="https://img.shields.io/david/asset-pipe/asset-pipe-build-server.svg" alt="Dependency Status" /></a></span>
 <span class="badge-daviddmdev"><a href="https://david-dm.org/asset-pipe/asset-pipe-build-server#info=devDependencies" title="View the status of this project's development dependencies on DavidDM"><img src="https://img.shields.io/david/dev/asset-pipe/asset-pipe-build-server.svg" alt="Dev Dependency Status" /></a></span>
 
