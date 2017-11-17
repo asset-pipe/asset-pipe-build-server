@@ -55,9 +55,13 @@ test('get() - should error if no payload', async () => {
     try {
         await storage.get('key');
     } catch (e) {
+<<<<<<< HEAD
         expect(e).toEqual(
             new Error('No file could be located with name "/meta/key.json".')
         );
+=======
+        expect(e).toEqual(new Error('No file with name "/meta/key.json"'));
+>>>>>>> feat: add all method to meta-storage
     }
 });
 
@@ -101,4 +105,55 @@ test('has() - set and get same value', async () => {
 
     const result = await storage.has('key');
     expect(result).toBe(true);
+});
+
+test('all() - error when empty', async () => {
+    expect.assertions(1);
+    const sink = new SinkMem();
+    const storage = new MetaStorage(sink, `random-type-123`);
+
+    try {
+        await storage.all();
+    } catch (e) {
+        expect(e.message).toMatchSnapshot();
+    }
+});
+
+test('all() - return 1 file', async () => {
+    const sink = new SinkMem();
+    const storage = new MetaStorage(sink, 'text');
+
+    await storage.set('key', { foo: 'bar' });
+
+    const result = await storage.has('key');
+    expect(result).toBe(true);
+
+    const files = await storage.all();
+    expect(files).toMatchSnapshot();
+});
+
+test('all() - return mulitiple files', async () => {
+    const sink = new SinkMem();
+    const storage = new MetaStorage(sink, 'text');
+
+    await storage.set('key', { foo: 'bar' });
+    await storage.set('key2', { foo: 'baz' });
+    await storage.set('key3', { foo: 'bazoooka' });
+
+    const files = await storage.all();
+    expect(files).toMatchSnapshot();
+});
+
+test('all() - return files from given folder', async () => {
+    const sink = new SinkMem();
+    const storage = new MetaStorage(sink, 'text');
+
+    await storage.set('key', { foo: 'bar' });
+    await storage.set('key2', { foo: 'baz' });
+
+    await sink.set('/meta/text/ignore-me/key2', '1');
+    await sink.set('/meta/text/ignore-me/key3', '2');
+
+    const files = await storage.all();
+    expect(files).toMatchSnapshot();
 });
