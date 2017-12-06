@@ -55,13 +55,9 @@ test('get() - should error if no payload', async () => {
     try {
         await storage.get('key');
     } catch (e) {
-<<<<<<< HEAD
         expect(e).toEqual(
             new Error('No file could be located with name "/meta/key.json".')
         );
-=======
-        expect(e).toEqual(new Error('No file with name "/meta/key.json"'));
->>>>>>> feat: add all method to meta-storage
     }
 });
 
@@ -107,16 +103,12 @@ test('has() - set and get same value', async () => {
     expect(result).toBe(true);
 });
 
-test('all() - error when empty', async () => {
+test('all() - not error when empty', async () => {
     expect.assertions(1);
     const sink = new SinkMem();
     const storage = new MetaStorage(sink, `random-type-123`);
 
-    try {
-        await storage.all();
-    } catch (e) {
-        expect(e.message).toMatchSnapshot();
-    }
+    expect(await storage.all()).toMatchSnapshot();
 });
 
 test('all() - return 1 file', async () => {

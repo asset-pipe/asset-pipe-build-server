@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`all() - error when empty 1`] = `"Missing folder with name \\"/meta/random-type-123\\" or empty result"`;
+exports[`all() - not error when empty 1`] = `Array []`;
 
 exports[`all() - return 1 file 1`] = `
 Array [
   Object {
-    "content": "{\\"foo\\":\\"bar\\"}",
-    "fileName": "/meta/text/key.json",
+    "foo": "bar",
   },
 ]
 `;
@@ -14,12 +13,10 @@ Array [
 exports[`all() - return files from given folder 1`] = `
 Array [
   Object {
-    "content": "{\\"foo\\":\\"bar\\"}",
-    "fileName": "/meta/text/key.json",
+    "foo": "bar",
   },
   Object {
-    "content": "{\\"foo\\":\\"baz\\"}",
-    "fileName": "/meta/text/key2.json",
+    "foo": "baz",
   },
 ]
 `;
@@ -27,16 +24,13 @@ Array [
 exports[`all() - return mulitiple files 1`] = `
 Array [
   Object {
-    "content": "{\\"foo\\":\\"bar\\"}",
-    "fileName": "/meta/text/key.json",
+    "foo": "bar",
   },
   Object {
-    "content": "{\\"foo\\":\\"baz\\"}",
-    "fileName": "/meta/text/key2.json",
+    "foo": "baz",
   },
   Object {
-    "content": "{\\"foo\\":\\"bazoooka\\"}",
-    "fileName": "/meta/text/key3.json",
+    "foo": "bazoooka",
   },
 ]
 `;
