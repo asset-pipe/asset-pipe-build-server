@@ -7,6 +7,7 @@ const Router = require('../lib/main');
 const supertest = require('supertest');
 const pretty = require('pretty');
 const { PassThrough } = require('readable-stream');
+const { endWorkers } = require('../lib/utils');
 
 function createTestServerFor(router) {
     const app = express();
@@ -20,6 +21,8 @@ function createTestServerFor(router) {
         });
     });
 }
+
+afterAll(() => endWorkers());
 
 describe('Router class', () => {
     test('new Router() with no arguments', () => {
@@ -298,6 +301,13 @@ describe('Router instance methods', () => {
         const uri = router.buildUri('bar', 'foo', false);
 
         expect(uri).toBe('http://foo/bar/');
+    });
+
+    test('cleanup', () => {
+        const router = new Router();
+
+        // Actually invoking it messes up all other tests...
+        expect(router.cleanup).toBeInstanceOf(Function);
     });
 });
 
