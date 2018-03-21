@@ -59,7 +59,7 @@ Object {
 `;
 
 exports[`bundling multiple js feeds /bundle/:file 1`] = `
-"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 \\"use strict\\";module.exports.world=function(){return\\"world\\"};
 },{}],2:[function(require,module,exports){
 \\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
@@ -69,13 +69,13 @@ exports[`bundling multiple js feeds /bundle/:file 1`] = `
 
 exports[`bundling multiple js feeds /bundle/:file 2`] = `
 Object {
-  "file": "68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
-  "uri": "/bundle/68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
+  "file": "664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
+  "uri": "/bundle/664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
 }
 `;
 
 exports[`bundling multiple js feeds /bundle/:file 3`] = `
-"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 \\"use strict\\";module.exports.world=function(){return\\"world\\"};
 },{}],2:[function(require,module,exports){
 \\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
@@ -84,7 +84,7 @@ exports[`bundling multiple js feeds /bundle/:file 3`] = `
 `;
 
 exports[`bundling multiple js feeds /bundle/:file?minify=true 1`] = `
-"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 \\"use strict\\";module.exports.world=function(){return\\"world\\"};
 },{}],2:[function(require,module,exports){
 \\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
@@ -94,13 +94,13 @@ exports[`bundling multiple js feeds /bundle/:file?minify=true 1`] = `
 
 exports[`bundling multiple js feeds /bundle/:file?minify=true 2`] = `
 Object {
-  "file": "68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
-  "uri": "/bundle/68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
+  "file": "664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
+  "uri": "/bundle/664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
 }
 `;
 
 exports[`bundling multiple js feeds /bundle/:file?minify=true 3`] = `
-"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 \\"use strict\\";module.exports.world=function(){return\\"world\\"};
 },{}],2:[function(require,module,exports){
 \\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
@@ -109,7 +109,7 @@ exports[`bundling multiple js feeds /bundle/:file?minify=true 3`] = `
 `;
 
 exports[`bundling multiple js feeds /bundle/js with multiple invalid bundle reference 1`] = `
-"(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\\"function\\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\\"Cannot find module '\\"+o+\\"'\\");throw f.code=\\"MODULE_NOT_FOUND\\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\\"function\\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 \\"use strict\\";module.exports.world=function(){return\\"world\\"};
 },{}],2:[function(require,module,exports){
 \\"use strict\\";module.exports.hello=function(){return\\"hello\\"};
@@ -119,8 +119,8 @@ exports[`bundling multiple js feeds /bundle/js with multiple invalid bundle refe
 
 exports[`bundling multiple js feeds /bundle/js with multiple invalid bundle reference 2`] = `
 Object {
-  "file": "68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
-  "uri": "/bundle/68b9bf8f4fbbefea8cd76d4490a81b77cb14900141d673e8ec701254a608faea.js",
+  "file": "664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
+  "uri": "/bundle/664d81d57efd829f9e8a240bcde98dd65e0fae92bd3322e28740dcf5fcce9846.js",
 }
 `;
 
@@ -147,8 +147,8 @@ exports[`bundling single css feed persist meta information 1`] = `
 
 exports[`bundling single js feed /bundle/js 1`] = `
 Object {
-  "file": "0b8699357bf3807af4ed0e91c1e8bbc5ae86c2fafa6a2b3c3444950457d034fd.js",
-  "uri": "/bundle/0b8699357bf3807af4ed0e91c1e8bbc5ae86c2fafa6a2b3c3444950457d034fd.js",
+  "file": "e3776788b3c6ab246158ab196ff3215bf312efe29b9701e48cadfecc219759ae.js",
+  "uri": "/bundle/e3776788b3c6ab246158ab196ff3215bf312efe29b9701e48cadfecc219759ae.js",
 }
 `;
 
@@ -159,7 +159,7 @@ exports[`bundling single js feed persist meta information 1`] = `
       "js/myId",
       Object {
         "id": "myId",
-        "version": "0b8699357bf3807af4ed0e91c1e8bbc5ae86c2fafa6a2b3c3444950457d034fd.js",
+        "version": "e3776788b3c6ab246158ab196ff3215bf312efe29b9701e48cadfecc219759ae.js",
       },
     ],
   ],
