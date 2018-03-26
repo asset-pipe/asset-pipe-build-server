@@ -86,7 +86,7 @@ test('optimistic bundling of js feeds', async () => {
 
     expect(
         await sink.get(
-            '8b9a3142fa84751f4a0b6578f58024bd3b98aea6fb47f8e87dd0c813a250fa95.js'
+            'cad2b0041db74ac23e27c8c665ce0bca3750d66e18e9e5e15a6cd03e6b55b56d.js'
         )
     ).toMatchSnapshot();
 });
@@ -109,7 +109,7 @@ test('publish instructions before publishing assets', async () => {
 
     expect(
         await sink.get(
-            '8b9a3142fa84751f4a0b6578f58024bd3b98aea6fb47f8e87dd0c813a250fa95.js'
+            'cad2b0041db74ac23e27c8c665ce0bca3750d66e18e9e5e15a6cd03e6b55b56d.js'
         )
     ).toMatchSnapshot();
 });
@@ -132,7 +132,7 @@ test('optimistic bundling of css feeds', async () => {
 
     expect(
         await sink.get(
-            '2c408796d55d03d6fbaef774c591b868cf07cac4147bc61d3b40825e16f725ab.css'
+            '4c718f870a0ffefb528244870f751b350e29362150c3e8cf681ad4ac6834aa05.css'
         )
     ).toMatchSnapshot();
 });
@@ -167,7 +167,7 @@ test('publish instructions before publishing muiltple assets', async () => {
 
     expect(
         await sink.get(
-            '81840961ff9dff9c99dc7f3e04a829a90a3169b31e38f452f9c4ea04bc6436d3.js'
+            'dee1108e985a441997a0d4f14c0678b7a7b1145d5966e13c18bdd3b605beffc2.js'
         )
     ).toMatchSnapshot();
 });
@@ -218,7 +218,7 @@ test('publish instructions updated', async () => {
 
     expect(
         await sink.get(
-            '81840961ff9dff9c99dc7f3e04a829a90a3169b31e38f452f9c4ea04bc6436d3.js'
+            'cad2b0041db74ac23e27c8c665ce0bca3750d66e18e9e5e15a6cd03e6b55b56d.js'
         )
     ).toMatchSnapshot();
 });
@@ -259,7 +259,7 @@ test('republishing same asset does not trigger a rebuild', async () => {
 
     expect(
         await sink.get(
-            '81840961ff9dff9c99dc7f3e04a829a90a3169b31e38f452f9c4ea04bc6436d3.js'
+            'dee1108e985a441997a0d4f14c0678b7a7b1145d5966e13c18bdd3b605beffc2.js'
         )
     ).toMatchSnapshot();
 });
@@ -294,7 +294,7 @@ test('republishing different asset triggers a rebuild', async () => {
 
     expect(
         await sink.get(
-            '81840961ff9dff9c99dc7f3e04a829a90a3169b31e38f452f9c4ea04bc6436d3.js'
+            'dee1108e985a441997a0d4f14c0678b7a7b1145d5966e13c18bdd3b605beffc2.js'
         )
     ).toMatchSnapshot();
 
@@ -306,7 +306,7 @@ test('republishing different asset triggers a rebuild', async () => {
 
     expect(
         await sink.get(
-            '19f3f812f476bade25e76694c8ea4e96280c1a9f7cda77a813c301b9ef8612c6.js'
+            '2ece5b23ba1649083ff871479c6d5ccd383c5e15d781a57abcfbc83051c53cec.js'
         )
     ).toMatchSnapshot();
 });
