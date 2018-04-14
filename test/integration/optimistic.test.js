@@ -5,7 +5,8 @@ const express = require('express');
 const supertest = require('supertest');
 const Router = require('../../lib/main');
 const { endWorkers } = require('../../lib/utils');
-const Hasher = require('../../lib/hasher');
+const { hashArray } = require('@asset-pipe/common');
+const { hashContent } = require('../../lib/hasher');
 const OptimisticBundler = require('../../lib/optimistic-bundler');
 
 beforeAll(() => jest.setTimeout(20000));
@@ -348,10 +349,10 @@ test('calculating asset filename', async () => {
     const sink = new Sink();
     const optimisticBundler = new OptimisticBundler({ sink });
 
-    const hash = await Hasher.hashArray([
-        Hasher.hashContent(feed1),
-        Hasher.hashContent(feed2),
-        Hasher.hashContent(feed3),
+    const hash = hashArray([
+        hashContent(feed1),
+        hashContent(feed2),
+        hashContent(feed3),
     ]);
 
     await optimisticBundler.publishInstructions({

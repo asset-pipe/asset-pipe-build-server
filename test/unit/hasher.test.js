@@ -1,6 +1,7 @@
 'use strict';
 
-const { hashArray, hashContent } = require('../../lib/hasher');
+const { hashContent } = require('../../lib/hasher');
+const { hashArray } = require('@asset-pipe/common');
 
 test('hashArray()', async () => {
     const ids = [
@@ -8,7 +9,7 @@ test('hashArray()', async () => {
         'b645cf572a8f5acf8716e4846b408d3b1ca45c58',
         'a645cf572a8f5acf8716e4846b408d3b1ca45c58',
     ];
-    const result = await hashArray(ids);
+    const result = hashArray(ids);
     expect(result).toBe(
         'fb61be35461b2ffc11d4109c201be02fe91177e86b23ecb0ad710711e41b2522'
     );

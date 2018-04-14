@@ -4,7 +4,8 @@ const express = require('express');
 const Router = require('../lib/main');
 const supertest = require('supertest');
 const { endWorkers } = require('../lib/utils');
-const Hasher = require('../lib/hasher');
+const { hashArray } = require('@asset-pipe/common');
+const { hashContent } = require('../lib/hasher');
 const Sink = require('@asset-pipe/sink-mem');
 
 const mockMetaStorageSet = jest.fn().mockName('metaStorageSet');
@@ -110,10 +111,7 @@ describe('publishing and bundling css feeds', async () => {
             post('/publish-assets').send(feed2),
         ]);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(cssFeed1),
-            Hasher.hashContent(cssFeed2),
-        ]);
+        const hash = hashArray([hashContent(cssFeed1), hashContent(cssFeed2)]);
         const { text } = await get(`/bundle/${hash}.css`);
         expect(text).toMatchSnapshot();
         await server.close();
@@ -146,10 +144,7 @@ describe('publishing and bundling css feeds', async () => {
             post('/publish-assets').send(feed2),
         ]);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(cssFeed1),
-            Hasher.hashContent(cssFeed2),
-        ]);
+        const hash = hashArray([hashContent(cssFeed1), hashContent(cssFeed2)]);
         const { text } = await get(`/bundle/${hash}.css`);
         expect(text).toMatchSnapshot();
         await server.close();
@@ -182,10 +177,7 @@ describe('publishing and bundling css feeds', async () => {
         ]);
         await post('/publish-instructions').send(instructions);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(cssFeed1),
-            Hasher.hashContent(cssFeed2),
-        ]);
+        const hash = hashArray([hashContent(cssFeed1), hashContent(cssFeed2)]);
         const { text } = await get(`/bundle/${hash}.css`);
         expect(text).toMatchSnapshot();
         await server.close();
@@ -236,10 +228,7 @@ describe('publishing and bundling js feeds', async () => {
             post('/publish-assets').send(feed2),
         ]);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(jsFeed1),
-            Hasher.hashContent(jsFeed2),
-        ]);
+        const hash = hashArray([hashContent(jsFeed1), hashContent(jsFeed2)]);
         const { text } = await get(`/bundle/${hash}.js`);
         expect(text).toMatchSnapshot();
         await server.close();
@@ -272,10 +261,7 @@ describe('publishing and bundling js feeds', async () => {
             post('/publish-assets').send(feed2),
         ]);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(jsFeed1),
-            Hasher.hashContent(jsFeed2),
-        ]);
+        const hash = hashArray([hashContent(jsFeed1), hashContent(jsFeed2)]);
         const { text } = await get(`/bundle/${hash}.js`);
         expect(text).toMatchSnapshot();
         await server.close();
@@ -308,10 +294,7 @@ describe('publishing and bundling js feeds', async () => {
         ]);
         await post('/publish-instructions').send(instructions);
 
-        const hash = await Hasher.hashArray([
-            Hasher.hashContent(jsFeed1),
-            Hasher.hashContent(jsFeed2),
-        ]);
+        const hash = hashArray([hashContent(jsFeed1), hashContent(jsFeed2)]);
         const { text } = await get(`/bundle/${hash}.js`);
         expect(text).toMatchSnapshot();
         await server.close();
