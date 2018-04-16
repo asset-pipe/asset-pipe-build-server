@@ -345,6 +345,25 @@ describe('publishing and bundling js feeds', async () => {
         await server.close();
     });
 
+    test('debug logs get emitted', async done => {
+        expect.hasAssertions();
+        const sink = new Sink();
+        const router = new Router(sink);
+        router.once('debug', log => {
+            expect(log).toMatchSnapshot();
+            done();
+        });
+        const { server } = await createTestServerFor(router.router());
+        const { post } = supertest(server);
+        const feed1 = {
+            tag: 'podlet1',
+            type: 'js',
+            data: jsFeed1,
+        };
+        await post('/publish-assets').send(feed1);
+        await server.close();
+    });
+
     test('info logs get logged when logger is provided', async () => {
         expect.hasAssertions();
         const sink = new Sink();
