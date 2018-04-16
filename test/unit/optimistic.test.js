@@ -34,21 +34,6 @@ const feed3 = [
     },
 ];
 
-test('bundleExists() - doesnt exists', async () => {
-    const sink = new Sink();
-    const ob = new OptimisticBundler({ sink });
-    expect(await ob.bundleExists(['a', 'b', 'c'], 'js')).toBeFalsy();
-});
-
-test('bundleExists() - exists', async () => {
-    const sink = new Sink();
-    const ob = new OptimisticBundler({ sink });
-    const file =
-        'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js';
-    await sink.set(file, 'content');
-    expect(await ob.bundleExists(['a', 'b', 'c'], 'js')).toBeTruthy();
-});
-
 test('getFeeds()', async () => {
     const sink = new Sink();
     const ob = new OptimisticBundler({ sink });
@@ -74,7 +59,11 @@ test('bundle()', async () => {
     await sink.set('/tags/js/b.txt', 'hash2');
     await sink.set('/tags/js/c.txt', 'hash3');
 
-    const bundle = await ob.bundle(['a', 'b', 'c'], 'js');
+    const bundle = await ob.bundle(
+        ['a', 'b', 'c'],
+        ['hash1', 'hash2', 'hash3'],
+        'js'
+    );
     expect(bundle).toMatchSnapshot();
 });
 
