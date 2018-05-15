@@ -20,7 +20,8 @@
     "Greenkeeper (http://greenkeeper.io/)",
     "Sveinung Røsaker (https://github.com/sveisvei)",
     "Simen Bekkhus (https://github.com/SimenB)",
-    "Richard Walker (https://github.com/digitalsadhu)"
+    "Richard Walker (https://github.com/digitalsadhu)",
+    "greenkeeper[bot] (http://github.com/apps/greenkeeper)"
   ],
   "bugs": {
     "url": "https://github.com/asset-pipe/asset-pipe-build-server/issues"
@@ -28,7 +29,7 @@
   "dependencies": {
     "@asset-pipe/common": "^3.0.0",
     "@asset-pipe/css-reader": "^1.1.0",
-    "@asset-pipe/js-reader": "^2.3.0",
+    "@asset-pipe/js-reader": "^2.3.1",
     "@asset-pipe/sink-fs": "^1.1.1",
     "@asset-pipe/sink-mem": "^1.1.2",
     "abslog": "^2.0.0",
