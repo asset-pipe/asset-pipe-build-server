@@ -34,6 +34,9 @@ exports[`publishing and bundling js feeds info logs get logged when logger is pr
     Array [
       "js asset feed for tag \\"podlet1\\" published as \\"7e0df1c7f101f2c102fa132a939eedc09b131c8bd29dd6a4b9c1aeed43aba75f.json\\"",
     ],
+    Array [
+      "js fallback bundle for tag \\"podlet1\\" published as \\"7e0df1c7f101f2c102fa132a939eedc09b131c8bd29dd6a4b9c1aeed43aba75f.js\\"",
+    ],
   ],
 }
 `;
