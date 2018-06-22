@@ -300,6 +300,27 @@ describe('publishing and bundling js feeds', async () => {
         await server.close();
     });
 
+    test('publish assets with rebundle disabled', async () => {
+        const sink = new Sink();
+        const router = new Router(sink);
+        const { server } = await createTestServerFor(router.router());
+        const { get, post } = supertest(server);
+        const feed1 = {
+            tag: 'podlet1',
+            type: 'js',
+            data: jsFeed1,
+        };
+
+        const { body: { id } } = await post(
+            '/publish-assets?rebundle=false'
+        ).send(feed1);
+
+        const { text } = await get(`/feed/${id}.js`);
+        expect(text).toMatchSnapshot();
+        expect(sink).toMatchSnapshot();
+        await server.close();
+    });
+
     test('retrieving feeds published via optimistic bundling', async () => {
         const sink = new Sink();
         const router = new Router(sink);
