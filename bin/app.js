@@ -54,9 +54,9 @@ app.use((req, res) => {
             res.status(404).json({ code: 404, message: 'Not found' });
             break;
         case 'html':
-            res
-                .status(404)
-                .send('<html><body><h1>Not found</h1></body></html>');
+            res.status(404).send(
+                '<html><body><h1>Not found</h1></body></html>'
+            );
             break;
         case 'text':
             res.status(404).send('Not found');
