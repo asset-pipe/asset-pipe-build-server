@@ -566,7 +566,7 @@ describe('bundling single js feed', () => {
         ]);
 
         expect(errorEvent.message).toMatch(
-            /Unexpected end of JSON input while parsing near/
+            /Unable to parse 1 or more feeds as JSON/
         );
         expect(errorEvent.isBoom).toBe(true);
     });
