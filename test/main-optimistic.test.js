@@ -309,12 +309,13 @@ describe('publishing and bundling js feeds', async () => {
             data: jsFeed1,
         };
 
-        const { body: { id } } = await post(
-            '/publish-assets?rebundle=false'
-        ).send(feed1);
+        const {
+            body: { id },
+        } = await post('/publish-assets?rebundle=false').send(feed1);
 
         const { text } = await get(`/feed/${id}.js`);
         expect(text).toMatchSnapshot();
+        sink.domain = null;
         expect(sink).toMatchSnapshot();
         await server.close();
     });
@@ -329,7 +330,9 @@ describe('publishing and bundling js feeds', async () => {
             type: 'js',
             data: jsFeed1,
         };
-        const { body: { id } } = await post('/publish-assets').send(feed1);
+        const {
+            body: { id },
+        } = await post('/publish-assets').send(feed1);
         const { text } = await get(`/feed/${id}.json`);
         expect(text).toMatchSnapshot();
         await server.close();
