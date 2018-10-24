@@ -71,7 +71,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "jest --coverage",
+    "test": "jest --coverage --forceExit",
     "start": "node bin/server.js",
     "lint:format": "eslint --fix .",
     "precommit": "lint-staged",
