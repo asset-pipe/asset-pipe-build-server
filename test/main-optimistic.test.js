@@ -422,7 +422,7 @@ describe('publishing and bundling js feeds', async () => {
         };
         await post('/publish-assets').send(feed1);
         await server.close();
-        expect(buff).toHaveLength(10);
+        expect(buff).toHaveLength(11);
         expect(buff[0].toJSON()).toMatchSnapshot({
             time: expect.any(Number),
             timestamp: expect.any(Number),
