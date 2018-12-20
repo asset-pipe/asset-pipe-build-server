@@ -1,6 +1,6 @@
 {
   "name": "@asset-pipe/server",
-  "version": "5.11.0",
+  "version": "5.11.1",
   "description": "Asset pipe build server",
   "license": "MIT",
   "main": "./lib/main.js",
