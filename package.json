@@ -46,7 +46,7 @@
     "fast-json-stable-stringify": "2.0.0",
     "jest-worker": "24.9.0",
     "joi": "14.3.1",
-    "mime-types": "2.1.24",
+    "mime-types": "2.1.25",
     "p-retry": "4.1.0",
     "parse-json": "5.0.0",
     "readable-stream": "3.4.0",
